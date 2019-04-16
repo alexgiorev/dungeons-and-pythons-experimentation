@@ -1,7 +1,8 @@
 import sys
+import itertools
+
 import utils
 import treasures
-import itertools
 
 class Actor:
     @property

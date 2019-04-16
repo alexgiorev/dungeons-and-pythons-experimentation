@@ -1,13 +1,14 @@
 import json
-import copy
-import treasures
-import actors
-import os
 import itertools
-import utils
+import os
+import copy
 import sys
 import time
+
 import random
+import treasures
+import actors
+import utils
 
 class Map:
     # attributes:
