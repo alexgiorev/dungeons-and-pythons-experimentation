@@ -1,0 +1,13 @@
+{"hero": {"name": "Bron", "title": "Dragon Slayer", "health": 20, "mana": 100,
+          "fist_damage": 0, "mana_regeneration_rate": 2},
+ "enemies": {"all": {"health": 40, "mana": 100, "fist_damage": 20, "behavior": "aggresive"}},
+ "map_template": ["EEEEEEEEEEEEEEEEEEEEE.....",
+                  ".....................E....",  
+                  ".....................E....",
+                  ".....................E....",
+                  "S....................#....",
+                  ".....................E....",
+                  ".....................E....",
+                  ".....................E....",
+                  ".....................E...G"],
+ "treasures": []}
