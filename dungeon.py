@@ -10,18 +10,27 @@ import treasures
 import actors
 import utils
 
-class Map:
+class Matrix:
+    # A general matrix class.
+    # In addition to matrix operations, it contains helpers related to the game
+    # ecause this class will mostly be used to represent the map of the game.
+    
     # attributes:
     #   - self.matrix: a list of lists representing the map.
     #     Each entry in self.matrix is one of:
     #         - an Actor or TreasureChest instance
-    #         - Map.WALKABLE or Map.OBSTACLE
-    #   - self.gateway_pos: the coordinates of the gateway in the map
+    #         - Matrix.WALKABLE or Matrix.OBSTACLE
+    #   - self.gateway_pos: the coordinates of the gateway in the map.
+    #     This attribute is only needed when using the Matrix as a map for the game.
 
     # COMPARE THESE WITH THE == OPERATOR NOT WITH is
     # is MAY NOT WORK WHEN RESTARTING THE GAME AND COPYING THE MAP
     WALKABLE = 'w'
     OBSTACLE = 'o'
+
+    def __init__(self, lols):
+        # @lols should be a list of lists
+        self.matrix = lols
         
     @property
     def nrows(self):
@@ -30,9 +39,6 @@ class Map:
     @property
     def ncols(self):
         return len(self.matrix[0])
-
-    def cleanup_at(self, pos):
-        self[pos] = self.WALKABLE
 
     def pos_is_valid(self, pos):
         row, col = pos
@@ -53,6 +59,12 @@ class Map:
 
     def is_obstacle(self, pos):
         return self[pos] == self.OBSTACLE
+
+    @property
+    def rows(self):
+        # returns an iterator of lists which are the rows of @self
+        # modifying those rows will not modify @self
+        return (row_list[:] for row_list in self.matrix)
     
     @property
     def chars(self):
@@ -81,8 +93,8 @@ class Map:
             else:
                 raise ValueError(f'invalid entity at {pos}: {entity}')            
             
-        return [[to_char((row, col)) for col in range(self.ncols)]
-                for row in range(self.nrows)]
+        return Matrix([[to_char((row, col)) for col in range(self.ncols)]
+                       for row in range(self.nrows)])
 
     def __getitem__(self, pos):
         # pos must be a pair (<row-index>, <column-index>)
@@ -111,10 +123,13 @@ class Map:
                 yield (rowi, coli)
     
 class Game:
+    # a Game instance is going to contain all of the data needed to run a game.
+    # it is going to be the connective tissue.
+    
     WON = object()
     KILLED = object()
     QUIT = object()
-    
+
     def __init__(self, hero, enemies, map):
         self.hero = hero
         self.enemies = enemies
@@ -150,13 +165,17 @@ class Game:
         # @direction must be one of {'up', 'down', 'left', 'right'}
     
         new_pos = utils.move_pos(actor.pos, direction)
+        
         if not self.map.can_move_to(new_pos):
             return
+        
         if type(self.map[new_pos]) is treasures.TreasureChest:
             self.map[new_pos].open().give_to_actor(actor)
-            self.map.cleanup_at(new_pos)
+            self.map.make_walkable(new_pos)
+            
         self.map.make_walkable(actor.pos)
         self.map[new_pos] = actor
+        
         actor.pos = new_pos
 
     def actor_attack(self, actor, by, direction):
@@ -167,37 +186,35 @@ class Game:
         HIT = '*'
         
         def animate_spell_cast(posns, end):
+            # @posns must be a non-empty list of positions
             # end must be in {'actor', 'inanimate', 'evaporate'}
             # all posns until the last one must be walkable
+            
             symbol = {'up': '^', 'down': 'v', 'left': '<', 'right': '>'}[direction]
+            
             for pos in posns[:-1]:
-                r, c = pos
-                old_char = self.map_chars[r][c]
-                self.map_chars[r][c] = symbol
+                old_char = self.map_chars[pos]
+                self.map_chars[pos] = symbol
                 self.display()
                 time.sleep(SECS)
-                self.map_chars[r][c] = old_char
+                self.map_chars[pos] = old_char
                 
-            r, c = posns[-1]
+            last_pos = posns[-1]
             if end == 'actor':
-                self.map_chars[r][c] = HIT
+                self.map_chars[last_pos] = HIT
             elif end == 'evaporate':
-                print('evaporate')
-                self.map_chars[r][c] = symbol
-            else:
-                pass
+                self.map_chars[last_pos] = symbol
             self.display()
             time.sleep(SECS)
 
         def animate_melee(victim_pos):
             # call only if weapon or fist attack was actually made
-            r, c = victim_pos
-            self.map_chars[r][c] = HIT
+            self.map_chars[victim_pos] = HIT
             self.display()
             time.sleep(SECS)
         
         if by == 'spell':
-            spell = actor.spell            
+            spell = actor.spell
             if actor.mana < spell.mana_cost:
                 return
             actor.take_mana(spell.mana_cost)
@@ -211,7 +228,7 @@ class Game:
                     animate_spell_cast(anim_posns, end='actor')
                     break
                 elif not self.map.is_walkable(pos):
-                    animate_spell_cast(anim_posns, 'other')
+                    animate_spell_cast(anim_posns, 'inanimate')
                     break
             else:
                 animate_spell_cast(anim_posns, 'evaporate')
@@ -234,7 +251,7 @@ class Game:
 
     def remove_body_if_dead(self, actor):
         if not actor.is_alive:
-            self.map.cleanup_at(actor.pos)
+            self.map.make_walkable(actor.pos)
 
     def hero_turn(self):
         hero = self.hero
@@ -391,7 +408,7 @@ class Game:
             print()
 
         def display_map():
-            lines = (''.join(line) for line in self.map_chars)
+            lines = (''.join(line) for line in self.map_chars.rows)
             print('\n'.join(lines))
             print()
         
@@ -403,7 +420,7 @@ class Game:
         self.map_chars = self.map.chars
         self.display()
         
-    def play(self):
+    def play(self):        
         while True:
             try:
                 self.refresh_display()
@@ -455,26 +472,22 @@ class Dungeon:
         result = object.__new__(Dungeon)
         result.hero_partial_dict = dct['hero']
         result.enemy_data = dct['enemies']
-        result.map_template = dct['map_template']
+        result.map_template = Matrix([list(row_str) for row_str in dct['map_template']])
         result.treasures = [treasures.parse_dict(tdict) for tdict in dct['treasures']]
         return result
 
     @property
     def spawn_posns(self):
         # returns an iterator of @self's spawn positions
-        nrows = len(self.map_template)
-        ncols = len(self.map_template[0])
-        for rowi in range(nrows):
-            for coli in range(ncols):
-                if self.map_template[rowi][coli] == 'S':
-                    yield (rowi, coli)
+        return (pos for pos in self.map_template.posns_lrtb
+                if self.map_template[pos] == 'S')
 
     @property
     def games(self):
         return [self.create_game(spawn_pos) for spawn_pos in self.spawn_posns]
 
     @property
-    def enemy_partial_dicts(self):        
+    def enemy_partial_dicts(self):
         if type(self.enemy_data) is list:
             return iter(self.enemy_data)
         return itertools.repeat(self.enemy_data['all'])
@@ -487,9 +500,7 @@ class Dungeon:
         hero = None
         enemies = []
         
-        # map initialization
-        the_map = object.__new__(Map)
-        the_map.matrix = [list(row) for row in self.map_template]
+        the_map = copy.deepcopy(self.map_template)
         the_map.gateway_pos = None
 
         # replace characters in the_map with the correct objects
@@ -502,7 +513,7 @@ class Dungeon:
                     hero = actors.Hero.from_dict(hero_dict)
                     the_map[pos] = hero
                 else:
-                    the_map[pos] = Map.WALKABLE
+                    the_map[pos] = Matrix.WALKABLE
             elif char == 'T':
                 chest = treasures.TreasureChest(pos, self.treasures)
                 the_map[pos] = chest
@@ -514,11 +525,11 @@ class Dungeon:
                 the_map[pos] = enemy
             elif char == 'G':
                 the_map.gateway_pos = pos
-                the_map[pos] = Map.WALKABLE
+                the_map[pos] = Matrix.WALKABLE
             elif char == '#':
-                the_map[pos] = Map.OBSTACLE
+                the_map[pos] = Matrix.OBSTACLE
             elif char == '.':
-                the_map[pos] = Map.WALKABLE
+                the_map[pos] = Matrix.WALKABLE
             else:
                 raise ValueError(f'invalid character in map template: "{char}"')
         return Game(hero, enemies, the_map)
