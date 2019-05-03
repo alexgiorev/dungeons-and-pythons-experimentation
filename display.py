@@ -5,20 +5,18 @@ from matrix import Matrix
 class Display:
     '''
 
-    attributes: dunmap, hero, chars
-
-    chars is a Matrix of characters
+attributes: dunmap, hero, chars
+chars is a Matrix of characters
 
     '''
 
     def update(self):
-        # updates @self's information and refreshes the display
-        
+        # updates @self's information and displays        
         self.chars = self.dunmap.chars
-        self.refresh()
+        self.display()
 
         
-    def refresh(self):
+    def display(self):
         def display_hero():
             print(f'health: {self.hero.health}')
             print(f'mana: {self.hero.mana}')
@@ -47,10 +45,10 @@ class Display:
         for pos in posns[:-1]:
             oldchar = self.chars[pos]
             self.chars[pos] = symbol
-            self.refresh()
+            self.display()
             time.sleep(SECS)
             self.chars[pos] = oldchar
-            self.refresh()
+            self.display()
 
         pos = posns[-1]
         oldchar = self.chars[pos]
@@ -61,10 +59,10 @@ class Display:
             self.chars[pos] = symbol
         else:
             pass
-        self.refresh()
+        self.display()
         time.sleep(SECS)
         self.chars[pos] = oldchar
-        self.refresh()
+        self.display()
 
 
     def animate_melee(self, victim_pos):
@@ -74,7 +72,7 @@ class Display:
 
         oldchar = self.chars[victim_pos]
         self.chars[victim_pos] = HIT
-        self.refresh()
+        self.display()
         time.sleep(SECS)
         self.chars[victim_pos] = oldchar
-        self.refresh()
+        self.display()

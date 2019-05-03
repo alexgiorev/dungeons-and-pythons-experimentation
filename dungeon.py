@@ -5,6 +5,7 @@ import itertools
 import sys
 import time
 import random
+import signal
 
 import treasures
 import actors
@@ -25,9 +26,10 @@ class Game:
         
     def play(self):
         def prepare():
-            self.display.refresh()
+            self.display.display()
         
         prepare()
+        
         while True:
             try:
                 self.hero.take_turn()
@@ -46,17 +48,25 @@ class Game:
             if self.hero.pos == self.dunmap.gateway_pos:
                 return self.WON
             
-            # after the hero's turn, some enemies may be dead, so stop tracking them
+            # after the hero's turn, some enemies may be dead,
+            # so stop tracking them
             self.enemies = [enemy for enemy in self.enemies if enemy.is_alive]
+
+            # turn of interruptions for enemies' turns
+            old_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
             
             for enemy in self.enemies:
                 enemy.take_turn()
 
+            signal.signal(signal.SIGINT, old_handler)
+
+            # after enemies' turns, update the display
             self.display.update()
                 
             # after the enemies' turn, the hero may have died
             if not self.hero.is_alive:
                 return self.KILLED
+
 
 class Dungeon:    
     @staticmethod
