@@ -27,10 +27,10 @@ class ManaPotion:
         self.amount = amount
 
     def give_to_actor(self, actor):
-        actor.give_mana(self.amount)
+        actor.add_mana(self.amount)
 
 class Weapon:
-    def __init__(self, name = "", damage = 0):
+    def __init__(self, name, damage):
         self.name = name
         self.damage = damage
 
@@ -38,7 +38,7 @@ class Weapon:
         actor.equip(self)
 
 class Spell:
-    def __init__(self, name = "", damage = 0, mana_cost = 0, cast_range = 1):
+    def __init__(self, name, damage, mana_cost, cast_range):
         self.name = name
         self.damage = damage
         self.mana_cost = mana_cost
@@ -60,3 +60,6 @@ def parse_dict(dct):
         return ManaPotion(dct['amount'])
     else:
         raise ValueError(f'invalid treasure type: {treasure_type}')
+
+default_weapon = Weapon('nil', 0)
+default_spell = Spell('nil', 0, 0, 1)

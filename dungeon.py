@@ -19,20 +19,28 @@ class Game:
     KILLED = object()
     QUIT = object()
 
-    
-    def __init__(self, hero, enemies, dunmap, display):
-        # enemies must be a list of Enemy        
-        self.hero = hero
-        self.enemies = enemies
-        self.dunmap = dunmap
-        self.display = display
+    def reinitialize(self):
+        self.dungeon.init_game(self, self.reset_data)
 
         
     def play(self):
-        self.display.refresh()
+        def prepare():
+            self.display.refresh()
         
+        prepare()
         while True:
-            self.hero.take_turn()
+            try:
+                self.hero.take_turn()
+            except KeyboardInterrupt:
+                command = input('>>> ')
+                if command == 'r':
+                    self.reinitialize()
+                    prepare()
+                    continue
+                elif command == 'q':
+                    return self.QUIT
+
+            # after the hero's turn, update the display
             self.display.update()
             
             if self.hero.pos == self.dunmap.gateway_pos:
@@ -125,11 +133,8 @@ class Dungeon:
     @property
     def games(self):
         return [self.create_game(spawn_pos) for spawn_pos in self.spawn_posns]
-    
-    def create_game(self, spawn_pos):
-        # @spawn_pos must be one of @self's spawn positions.
-        # Returns the Game instance with the hero at @spawn_pos.
 
+    def init_game(self, game, spawn_pos):
         # this function must create {hero, enemies_list, dunmap, display}
         
         # for the hero and enemies the uninitialized attributes are
@@ -183,4 +188,19 @@ class Dungeon:
                 raise ValueError(f'invalid character in map template: "{char}"')
 
         display.chars = dunmap.chars
-        return Game(hero=hero, enemies=enemies_list, dunmap=dunmap, display=display)
+
+        game.hero = hero
+        game.enemies = enemies_list
+        game.dunmap = dunmap
+        game.display = display
+        game.dungeon = self
+        game.reset_data = spawn_pos
+        
+        
+    def create_game(self, spawn_pos):
+        # @spawn_pos must be one of @self's spawn positions.
+        # Returns the Game instance with the hero at @spawn_pos.
+
+        game = object.__new__(Game)
+        self.init_game(game, spawn_pos)
+        return game
