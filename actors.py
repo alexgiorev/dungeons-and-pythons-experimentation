@@ -138,133 +138,124 @@ class Enemy(Actor):
     #  - last_seen: the position the hero was last seen in.
     #  - hero_direction: always equal to utils.relative_direction(self.pos, self.last_seen);
     #                    it is included only for convenience.
-        
-    def turn_logic(self):
-        def search_for_hero():
-            # Returns (position, direction) of the hero,
-            # or (None, None) if he can't be seen.
-            # @self will only look up, down, left and right
+    
+    def friendly_turn(self):
+        hero_pos, hero_direction = self.search_for_hero()
+        if hero_pos is None:
+            self.move_to_last_seen()
+        else:
+            self.last_seen, self.hero_direction = hero_pos, hero_direction
+            self.move_to_last_seen()
 
-            def try_direction(direction):
-                # looks for the hero in the direction @direction
-                # returns None if @enemy can't see him in that direction
+            
+    def aggressive_turn(self):
+        hero_pos, hero_direction = self.search_for_hero()
+        if hero_pos is None:
+            self.move_to_last_seen()
+        else:
+            self.last_seen, self.hero_direction = hero_pos, hero_direction
+            if self.hero_is_in_vicinity():
+                self.near_attack()
+            else:
+                if not self.far_attack():
+                    self.move_to_last_seen()
 
-                for pos in self.dunmap.relative_posns(self.pos, direction):
-                    entity = self.dunmap[pos]
-                    if type(entity) is Hero:
-                        return pos
-                    elif entity is not self.dunmap.WALKABLE:
-                        # something blocks @self's view
-                        return None
-                return None
-
-            for direction in ('up', 'down', 'left', 'right'):
-                pos = try_direction(direction)
-                if pos is not None:
-                    return pos, direction
-
-            return None, None
-
-        def move_to_last_seen():
+                    
+    def rabid_turn(self):
+        hero_pos, hero_direction = self.search_for_hero()
+        if hero_pos is None:
             if self.last_seen is None:
-                return
-
-            if self.pos == self.last_seen:
-                self.last_seen = None
-                self.hero_direction = None
-                return
-
-            self.move(self.hero_direction)
-            
-        def hero_is_in_vicinity():
-            # Returns True if hero is directly above, below, to the right
-            # or to the left of @self.
-            pos_row, pos_col = self.pos
-            hero_row, hero_col = self.last_seen
-            return abs(pos_row - hero_row) <= 1 and abs(pos_col - hero_col) <= 1
-
-        def near_attack():
-            # Call only when the hero is next to @self!
-            # The enemy determines the attack type dealing the most
-            # damage and inflicts it on the hero.
-            
-            if self.weapon.damage >= self.spell.damage:
-                if self.weapon.damage > self.fist_damage:
-                    by = 'weapon'
-                else:
-                    by = 'fist'
+                self.move(random.choice(('up', 'down', 'left', 'right')))
             else:
-                if (self.fist_damage >= self.spell.damage
-                    or self.spell.mana_cost > self.mana):
-                    by = 'fist'
-                else:
-                    by = 'spell'
-            self.attack(by, self.hero_direction)
+                self.move_to_last_seen()
+        else:
+            self.last_seen, self.hero_direction = hero_pos, hero_direction
+            if self.hero_is_in_vicinity():
+                self.near_attack()
+            else:
+                if not self.far_attack():
+                    self.move_to_last_seen()
 
-        def far_attack():
-            # Call when the hero is seen, but not immediately near @self.
-            # If it is possible to cast a spell that will damage the hero,
-            # this function casts the spell and returns True. Otherwise, it returns False.
-            
-            enemy_row, enemy_col = self.pos
-            hero_row, hero_col = self.last_seen
-            distance = abs((enemy_row - hero_row) + (enemy_col - hero_col))
-            if distance <= self.spell.cast_range and self.spell.mana_cost <= self.mana:
-                self.attack(by='spell', direction=self.hero_direction)
-                return True
-            return False
+                    
+    def search_for_hero(self):
+        # Returns (position, direction) of the hero,
+        # or (None, None) if he can't be seen.
+        # @self will only look up, down, left and right
 
-        behavior_handlers = {}
+        def try_direction(direction):
+            # looks for the hero in the direction @direction
+            # returns None if @enemy can't see him in that direction
+
+            for pos in self.dunmap.relative_posns(self.pos, direction):
+                entity = self.dunmap[pos]
+                if type(entity) is Hero:
+                    return pos
+                elif entity is not self.dunmap.WALKABLE:
+                    # something blocks @self's view
+                    return None
+            return None
+
+        for direction in ('up', 'down', 'left', 'right'):
+            pos = try_direction(direction)
+            if pos is not None:
+                return pos, direction
+
+        return None, None
         
-        def behavior(name):
-            def decorator(func):
-                behavior_handlers[name] = func
-                return func
-            return decorator
 
-        @behavior("friendly")
-        def handler():
-            hero_pos, hero_direction = search_for_hero()
-            if hero_pos is None:
-                move_to_last_seen()
+    def move_to_last_seen(self):
+        if self.last_seen is None:
+            return
+
+        if self.pos == self.last_seen:
+            self.last_seen = None
+            self.hero_direction = None
+            return
+
+        self.move(self.hero_direction)
+
+
+    def hero_is_in_vicinity(self):
+        # Returns True if hero is directly above, below, to the right
+        # or to the left of @self.
+        pos_row, pos_col = self.pos
+        hero_row, hero_col = self.last_seen
+        return abs(pos_row - hero_row) <= 1 and abs(pos_col - hero_col) <= 1
+
+    
+    def near_attack(self):
+        # Call only when the hero is next to @self!
+        # The enemy determines the attack type dealing the most
+        # damage and inflicts it on the hero.
+
+        if self.weapon.damage >= self.spell.damage:
+            if self.weapon.damage > self.fist_damage:
+                by = 'weapon'
             else:
-                self.last_seen, self.hero_direction = hero_pos, hero_direction
-                move_to_last_seen()
-
-        @behavior("aggresive")
-        def handler():
-            hero_pos, hero_direction = search_for_hero()
-            if hero_pos is None:
-                move_to_last_seen()
+                by = 'fist'
+        else:
+            if (self.fist_damage >= self.spell.damage
+                or self.spell.mana_cost > self.mana):
+                by = 'fist'
             else:
-                self.last_seen, self.hero_direction = hero_pos, hero_direction
-                if hero_is_in_vicinity():
-                    near_attack()
-                else:
-                    if not far_attack():
-                        move_to_last_seen()
-                        
-
-        @behavior("rabid")
-        def handler():
-            hero_pos, hero_direction = search_for_hero()
-            if hero_pos is None:
-                if self.last_seen is None:
-                    self.move(random.choice(('up', 'down', 'left', 'right')))
-                else:
-                    move_to_last_seen()
-            else:
-                self.last_seen = hero_pos
-                self.hero_direction = hero_direction
-                if hero_is_in_vicinity():
-                    near_attack()
-                else:
-                    if not far_attack():
-                        move_to_last_seen()
+                by = 'spell'
+        self.attack(by, self.hero_direction)
 
 
-        behavior_handler = behavior_handlers.get(self.behavior)
-        if behavior_handler is None:
-            raise ValueError(f'self has invalid behavior: "{self.behavior}"')
+    def far_attack():
+        # Call when the hero is seen, but not immediately near @self.
+        # If it is possible to cast a spell that will damage the hero,
+        # this function casts the spell and returns True. Otherwise, it returns False.
 
-        behavior_handler()
+        enemy_row, enemy_col = self.pos
+        hero_row, hero_col = self.last_seen
+        distance = abs((enemy_row - hero_row) + (enemy_col - hero_col))
+        if distance <= self.spell.cast_range and self.spell.mana_cost <= self.mana:
+            self.attack(by='spell', direction=self.hero_direction)
+            return True
+        return False
+
+
+    def turn_logic(self):
+        behavior_handler = getattr(self, f'{self.behavior}_turn')
+        return behavior_handler()
