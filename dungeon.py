@@ -41,6 +41,10 @@ class Game:
                     continue
                 elif command == 'q':
                     return self.QUIT
+                else:
+                    # if unknown command, just redo the hero's turn
+                    self.display.display()
+                    continue
 
             # after the hero's turn, update the display
             self.display.update()
