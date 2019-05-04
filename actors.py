@@ -62,7 +62,7 @@ class Actor:
         # @direction must be in {'up', 'down', 'left', 'right'}
         
         if by == 'spell':
-            spell = self.spell            
+            spell = self.spell
             if self.mana < spell.mana_cost:
                 return
             self.take_mana(spell.mana_cost)
@@ -242,7 +242,7 @@ class Enemy(Actor):
         self.attack(by, self.hero_direction)
 
 
-    def far_attack():
+    def far_attack(self):
         # Call when the hero is seen, but not immediately near @self.
         # If it is possible to cast a spell that will damage the hero,
         # this function casts the spell and returns True. Otherwise, it returns False.
