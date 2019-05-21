@@ -40,10 +40,9 @@ class Actor:
     def learn(self, spell):
         self.spell = spell
 
-    def take_turn(self):
-        self.turn_logic()
+    def take_turn(self, command):
+        self.turn_logic(command)
         self.add_mana(self.mana_regeneration_rate)
-        # self.display.update()
         
     def move(self, direction):
         # @direction must be one of {'up', 'down', 'left', 'right'}
@@ -100,31 +99,8 @@ class Hero(Actor):
     @property
     def known_as(self):
         return f"{self.name} the {self.title}"
-
-    @staticmethod
-    def read_command():
-        # returns one of:
-        # {'up', 'down', 'left', 'right',
-        #  ('weapon', 'up'), ..., ('weapon', 'right'),
-        #  ('fist', 'up'), ..., ('fist', 'right'),
-        #  ('spell', 'up', ...', ('spell', 'right')}
-        # THIS FUNCTION DETERMINES THE USER CONTROL KEYS
-
-        while True:
-            first_char = utils.get_char()
-            if first_char in '2468':
-                return {'2': 'down', '4': 'left', '6': 'right', '8': 'up'}[first_char]
-            elif first_char in 'wsf':
-                by = {'w': 'weapon', 's': 'spell', 'f': 'fist'}[first_char]
-                second_char = utils.get_char()
-                if second_char not in '2468':
-                    continue
-                direction = {'2': 'down', '4': 'left', '6': 'right', '8': 'up'}[second_char]
-                return by, direction
-
             
-    def turn_logic(self):
-        command = self.read_command()
+    def turn_logic(self, command):
         if type(command) is str:
             # command is one of {'up', 'down', 'left', 'right'}
             self.move(command)
@@ -139,7 +115,7 @@ class Enemy(Actor):
     #  - hero_direction: always equal to utils.relative_direction(self.pos, self.last_seen);
     #                    it is included only for convenience.
     
-    def friendly_turn(self):
+    def friendly_turn(self, command):
         hero_pos, hero_direction = self.search_for_hero()
         if hero_pos is None:
             self.move_to_last_seen()
@@ -148,7 +124,7 @@ class Enemy(Actor):
             self.move_to_last_seen()
 
             
-    def aggressive_turn(self):
+    def aggressive_turn(self, command):
         hero_pos, hero_direction = self.search_for_hero()
         if hero_pos is None:
             self.move_to_last_seen()
@@ -161,7 +137,7 @@ class Enemy(Actor):
                     self.move_to_last_seen()
 
                     
-    def rabid_turn(self):
+    def rabid_turn(self, command):
         hero_pos, hero_direction = self.search_for_hero()
         if hero_pos is None:
             if self.last_seen is None:
@@ -256,6 +232,6 @@ class Enemy(Actor):
         return False
 
 
-    def turn_logic(self):
+    def turn_logic(self, command):
         behavior_handler = getattr(self, f'{self.behavior}_turn')
-        return behavior_handler()
+        return behavior_handler(command)

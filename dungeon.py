@@ -20,6 +20,31 @@ class Game:
     KILLED = object()
     QUIT = object()
 
+    @staticmethod
+    def read_command():
+        # returns one of:
+        # {'up', 'down', 'left', 'right',
+        #  ('weapon', 'up'), ..., ('weapon', 'right'),
+        #  ('fist', 'up'), ..., ('fist', 'right'),
+        #  ('spell', 'up', ...', ('spell', 'right'),
+        #  'start-console'}
+        # THIS FUNCTION DETERMINES THE USER CONTROL KEYS
+
+        while True:
+            first_char = utils.get_char()
+            if first_char in '2468':
+                return {'2': 'down', '4': 'left', '6': 'right', '8': 'up'}[first_char]
+            elif first_char == '`':
+                return 'start-console'
+            elif first_char in 'wsf':
+                by = {'w': 'weapon', 's': 'spell', 'f': 'fist'}[first_char]
+                second_char = utils.get_char()
+                if second_char not in '2468':
+                    continue
+                direction = {'2': 'down', '4': 'left', '6': 'right', '8': 'up'}[second_char]
+                return by, direction
+
+    
     def reinitialize(self):
         self.dungeon.init_game(self, self.reset_data)
 
@@ -31,21 +56,22 @@ class Game:
         prepare()
         
         while True:
-            try:
-                self.hero.take_turn()
-            except KeyboardInterrupt:
-                command = input('>>> ')
-                if command == 'r':
+            command = self.read_command()
+
+            if command == 'start-console':
+                code = input('>>> ')
+                if code == 'r':
                     self.reinitialize()
                     prepare()
                     continue
-                elif command == 'q':
+                elif code == 'q':
                     return self.QUIT
                 else:
-                    # if unknown command, just redo the hero's turn
                     self.display.display()
                     continue
-
+            else:
+                self.hero.take_turn(command)
+            
             # after the hero's turn, update the display
             self.display.update()
             
@@ -56,13 +82,8 @@ class Game:
             # so stop tracking them
             self.enemies = [enemy for enemy in self.enemies if enemy.is_alive]
 
-            # turn of interruptions for enemies' turns
-            old_handler = signal.signal(signal.SIGINT, signal.SIG_IGN)
-            
             for enemy in self.enemies:
-                enemy.take_turn()
-
-            signal.signal(signal.SIGINT, old_handler)
+                enemy.take_turn(command)
 
             # after enemies' turns, update the display
             self.display.update()
