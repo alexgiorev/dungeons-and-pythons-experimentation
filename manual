@@ -1,0 +1,51 @@
+py main.py <dungeon-file>+
+
+for example: py main.py dungeons/dun1 dungeons/dun2 dungeons/dun3
+
+    or equivalently
+
+    py main.py dungeons/dun[1-3]
+
+you can start the console by pressing backquote (the key below ESC)
+
+you can quit the game by entering 'q' in the console (without the
+quotes)
+
+you can restart the current game by entering 'r' (without the quotes)
+in the console.
+
+each dungeon has at least one spawn position. if the hero dies in a
+dungeon, he is respawned at the next spawn position (the first one
+from left to right, top to bottom relative to the last spawn
+position). if there are no more spawn positions, the game is over.
+
+an actor is a term which collectively describes heroes and enemies.
+
+the game is won when all enemies (marked with the letter E) are dead
+or the hero (marked with the letter H) moves to a gateway (marked with
+the letter G).
+
+the positions marked with T contain tresure chests. when an actor
+moves to a treasure chest, he recieves it's item and the treasure
+chest dissapears. an item can be a weapon or spell, or a health or
+mana potion.
+
+the positions marked with # contain obstacles. no actor can move to an
+obstacle and no spell can pass trough an obstacle.
+
+the positions marked with a dot are walkable. spells can only travel
+trough such positions.
+
+each actor has 'fist damage'. you can attack using a fist by pressing
+'f' and then one of the arrow keys to determine the direction {2, 4,
+6, 8}. 2 means down, 4 left, 6 right, 8 up. look at the numpad to see
+why this arrangement was chosen.
+
+an actor can have only one spell and only one weapon. actors start
+with a default spell which deals no damaga and a default weapon which
+deals no damage
+
+each spell cast takes some of the mana of the actor. after each turn,
+some of the actor's mana is regenerated. how much is determined by the
+actor's mana regeneration rate, and it may be different for all
+actors.
