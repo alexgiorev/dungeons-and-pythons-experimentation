@@ -4,10 +4,8 @@
         21
     ],
     "hero": {
-        "name": "Bron",
-        "title": "Dragon Slayer",
-        "health": 100,
-        "mana": 100,
+        "max_health": 100,
+        "max_mana": 100,
         "fist_damage": 0,
         "mana_regen": 2,
         "pos": [
@@ -21,8 +19,8 @@
     ],
     "enemies": [
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -32,8 +30,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -43,8 +41,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -54,8 +52,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -65,8 +63,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -76,8 +74,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -87,8 +85,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -98,8 +96,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -109,8 +107,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -120,8 +118,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -131,8 +129,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -142,8 +140,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -153,8 +151,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -164,8 +162,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -175,8 +173,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -186,8 +184,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -197,8 +195,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -208,8 +206,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -219,8 +217,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -230,8 +228,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -241,8 +239,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -252,8 +250,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -263,8 +261,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -274,8 +272,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -285,8 +283,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -296,8 +294,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -307,8 +305,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -318,8 +316,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -329,8 +327,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -340,8 +338,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -351,8 +349,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -362,8 +360,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -373,8 +371,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -384,8 +382,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -395,8 +393,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -406,8 +404,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -417,8 +415,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -428,8 +426,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -439,8 +437,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -450,8 +448,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -461,8 +459,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -472,8 +470,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -483,8 +481,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -494,8 +492,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -505,8 +503,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -516,8 +514,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -527,8 +525,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -538,8 +536,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -549,8 +547,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -560,8 +558,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -571,8 +569,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -582,8 +580,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -593,8 +591,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -604,8 +602,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -615,8 +613,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
@@ -626,8 +624,8 @@
             ]
         },
         {
-            "health": 40,
-            "mana": 100,
+            "max_health": 40,
+            "max_mana": 100,
             "fist_damage": 0,
             "behavior": "friendly",
             "mana_regen": 2,
