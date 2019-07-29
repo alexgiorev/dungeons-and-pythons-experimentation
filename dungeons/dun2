@@ -1,14 +1,338 @@
-{"hero": {"name": "Bron", "title": "Dragon Slayer", "health": 20, "mana": 100,
-          "fist_damage": 0, "mana_regeneration_rate": 2},
- "enemies": {"all": {"health": 40, "mana": 100, "fist_damage": 20, "behavior": "aggressive",
- 	    	     "mana_regeneration_rate": 2}},
- "dunmap_template": ["EEEEEEEEEEEEEEEEEEEEE.....",
-                     ".....................E....",  
-                     ".....................E....",
-                     ".....................E....",
-                     "S....................#....",
-                     ".....................E....",
-                     ".....................E....",
-                     ".....................E....",
-                     ".....................E...G"],
- "treasures": []}
+{
+    "gateway": [
+        8,
+        25
+    ],
+    "hero": {
+        "max_health": 20,
+        "max_mana": 100,
+        "fist_damage": 0,
+        "mana_regen": 2,
+        "pos": [
+            4,
+            0
+        ]
+    },
+    "dims": [
+        9,
+        26
+    ],
+    "enemies": [
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                0
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                1
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                2
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                3
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                4
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                5
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                6
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                7
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                8
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                9
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                10
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                11
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                12
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                13
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                14
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                15
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                16
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                17
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                18
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                19
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                0,
+                20
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                1,
+                21
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                2,
+                21
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                3,
+                21
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                5,
+                21
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                6,
+                21
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                7,
+                21
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "aggressive",
+            "mana_regen": 2,
+            "pos": [
+                8,
+                21
+            ]
+        }
+    ],
+    "obstacles": [
+        [
+            4,
+            21
+        ]
+    ],
+    "treasure-chests": [],
+    "treasures": []
+}

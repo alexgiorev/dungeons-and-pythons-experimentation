@@ -1,15 +1,186 @@
-{"hero": {"name": "Bron", "title": "Dragon Slayer", "health": 100, "mana": 100, "fist_damage": 20,
-          "mana_regeneration_rate": 2},
- "enemies": {"all": {"health": 40, "mana": 100, "fist_damage": 20, "behavior": "rabid",
- 	    	     "mana_regeneration_rate": 2}},
- "dunmap_template": ["S.##.....T",
-                     "#T##..###.",
-             	     "#.###E###E",
-                     "#.....###.",
-                     "###S#####G"],
- "treasures": [{"type": "weapon", "name": "The Axe of Destiny", "damage": 20},
-               {"type": "spell", "name": "Fireball", "damage": 30, "mana_cost": 50, "cast_range": 2},
-               {"type": "health_potion", "amount": 30},
-               {"type": "mana_potion", "amount": 20}]}
-
-
+{
+    "gateway": [
+        4,
+        9
+    ],
+    "hero": {
+        "max_health": 100,
+        "max_mana": 100,
+        "fist_damage": 20,
+        "mana_regen": 2,
+        "pos": [
+            0,
+            0
+        ]
+    },
+    "dims": [
+        5,
+        10
+    ],
+    "enemies": [
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "rabid",
+            "mana_regen": 2,
+            "pos": [
+                2,
+                5
+            ]
+        },
+        {
+            "max_health": 40,
+            "max_mana": 100,
+            "fist_damage": 20,
+            "behavior": "rabid",
+            "mana_regen": 2,
+            "pos": [
+                2,
+                9
+            ]
+        }
+    ],
+    "obstacles": [
+        [
+            0,
+            2
+        ],
+        [
+            0,
+            3
+        ],
+        [
+            1,
+            0
+        ],
+        [
+            1,
+            2
+        ],
+        [
+            1,
+            3
+        ],
+        [
+            1,
+            6
+        ],
+        [
+            1,
+            7
+        ],
+        [
+            1,
+            8
+        ],
+        [
+            2,
+            0
+        ],
+        [
+            2,
+            2
+        ],
+        [
+            2,
+            3
+        ],
+        [
+            2,
+            4
+        ],
+        [
+            2,
+            6
+        ],
+        [
+            2,
+            7
+        ],
+        [
+            2,
+            8
+        ],
+        [
+            3,
+            0
+        ],
+        [
+            3,
+            6
+        ],
+        [
+            3,
+            7
+        ],
+        [
+            3,
+            8
+        ],
+        [
+            4,
+            0
+        ],
+        [
+            4,
+            1
+        ],
+        [
+            4,
+            2
+        ],
+        [
+            4,
+            4
+        ],
+        [
+            4,
+            5
+        ],
+        [
+            4,
+            6
+        ],
+        [
+            4,
+            7
+        ],
+        [
+            4,
+            8
+        ]
+    ],
+    "treasure-chests": [
+        [
+            0,
+            9
+        ],
+        [
+            1,
+            1
+        ]
+    ],
+    "treasures": [
+        {
+            "type": "weapon",
+            "name": "The Axe of Destiny",
+            "damage": 20
+        },
+        {
+            "type": "spell",
+            "name": "Fireball",
+            "damage": 30,
+            "mana_cost": 50,
+            "cast_range": 2
+        },
+        {
+            "type": "health_potion",
+            "amount": 30
+        },
+        {
+            "type": "mana_potion",
+            "amount": 20
+        }
+    ]
+}

@@ -1,16 +1,25 @@
 import sys
-import dungeon
 import utils
+import curses
 
-def parse_dungeons():
-    # returns a list of Dungeon instances, which are parsed from the
-    # files entered on the command line.
-    return [dungeon.Dungeon.from_file(path) for path in sys.argv[1:]]
+import globvars
 
-dungeons = parse_dungeons()
+from game import Game
+
+def main(stdscr):
+    globvars.stdscr = stdscr
+    game = Game(sys.argv[1])
+    game.play()    
+
+curses.wrapper(main)
+
+"""
+old code
+
+games = [Game(path) for path in sys.argv[1:]]
 
 def start():
-    for current_dungeon in dungeons:
+    for game in games:
         games = current_dungeon.games
         for i, game in enumerate(games):
             status = game.play()
@@ -55,3 +64,4 @@ while True:
         if not play_again():
             break
         
+"""
