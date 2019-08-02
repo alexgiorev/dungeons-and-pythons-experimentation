@@ -7,6 +7,7 @@ import time
 import random
 import signal
 import curses
+import curses.textpad
 
 import treasures
 import utils
@@ -517,13 +518,6 @@ class Game:
                 return by, directions[second_key]
 
     ########################################
-    # console
-            
-    def console(self):
-        """Handles console commands."""
-        raise NotImplementedError
-
-    ########################################
     # initialization
     
     def init_screens(self):
@@ -606,8 +600,44 @@ class Game:
     def animate_melee(self, pos):
         HIT = '*'
         self._flash(*pos, HIT)
+        
+    ########################################
+    # console
+            
+    def console(self):
+        """Handles console commands. Gives feedback to the main loop about how
+        to continue."""
+        cmd = self.read_console()
+        utils.log(f'the command is "{cmd}"')
+        if cmd == 'q':
+            return 'quit'
+        elif cmd == 'r':
+            self.reset()
+            self.draw()
+            return 'continue'
 
         
+    def read_console(self):
+        """Display prompt, read command, clear screen, return command."""
+        PROMPT = '> '
+
+        curses.curs_set(True)
+        
+        self.console_scr.addstr(PROMPT)
+        self.console_scr.refresh()
+        
+        subwin = self.console_scr.derwin(0, len(PROMPT))
+        tb = curses.textpad.Textbox(subwin)
+        text = tb.edit().strip()
+        
+        self.console_scr.clear()
+        self.console_scr.refresh()
+
+        curses.curs_set(False)
+        
+        return text
+
+
     ########################################
     # play
     
@@ -622,28 +652,23 @@ class Game:
 
     def _main_loop(self):
         while True:
-            try:
-                utils.log(f'the health is {self.hero.health}')
-                command = self.read_command()
-                if command == 'start-console':
-                    self.console()
+            command = self.read_command()
+            if command == 'start-console':
+                feedback = self.console()
+                if feedback == 'quit':
+                    return Game.QUIT
                 else:
-                    self.hero_turn(command)
-                # after the hero's turn, update the display
+                    continue
+            else:
+                self.hero_turn(command)
                 self.draw()
                 if self.hero.pos == self.dunmap.gateway_pos:
                     return self.WON
-                # after the hero's turn, some enemies may be dead, so stop
-                # tracking them
                 self.enemies = [enemy for enemy in self.enemies if enemy.is_alive]
                 if not self.enemies:
                     return self.WON
                 for enemy in self.enemies:
                     self.enemy_turn(enemy)
-                # after enemies' turns, update the display
                 self.draw()
-                # after the enemies' turn, the hero may have died
                 if not self.hero.is_alive:
                     return self.KILLED
-            except Game.Exc:
-                raise NotImplementedError
