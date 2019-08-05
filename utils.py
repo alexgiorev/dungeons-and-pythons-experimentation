@@ -69,6 +69,8 @@ class List:
 
 
     def get(items, scr=None):
+        curses.curs_set(False)
+        
         if not items:
             raise ValueError(f'(items) cannot be empty. Given {items}')
         
